@@ -1,0 +1,62 @@
+.hotel-listing{
+  width:80%;
+  &__container{
+    width:50%;
+    margin:auto;
+    height:70%;
+    border:2px solid #666666;
+    margin-top:100px;
+    border-radius: 7px;
+  }
+
+  &__header{
+    background-color:#424242;
+    display:flex;
+    margin:0 auto;
+    height:9%;
+
+    &__icons{
+      display:flex;
+      align-items:center;
+      height:100%;
+      margin-left:5px;
+
+      .header--control{
+        width:15px;
+        height:15px;
+        margin-left:10px;
+        border-radius:50%;
+        background-color:#666666;
+      }
+    }
+
+    .header--title{
+      margin: auto;
+      color: #FEFEFE;
+    }
+  }
+
+  &__content{
+    border:1px solid red;
+    height:90%;
+    display:flex;
+    .content--side__filter{
+      border:1px solid red;
+      width:25%;
+      height:100%;
+    }
+
+    .card-container{
+      border:1px solid purple;
+      width:100%;
+      margin-top:50px;
+
+      &__header{
+        border:1px solid blue;
+
+      }
+    }
+  }
+
+
+}
