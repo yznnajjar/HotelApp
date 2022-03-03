@@ -1,0 +1,12 @@
+@mixin vendor-prefix-placeholder($name) {
+  $propertyName: $name;
+  @each $vendor in ('-moz-', '-ms-', '-o-', '-webkit-') {
+    @if $vendor == '-webkit-' {
+      $propertyName: input-placeholder
+    }
+    &::#{$vendor}#{$propertyName} {
+      color: var(--color-black-2);
+      font-weight:500;
+    }
+  }
+}

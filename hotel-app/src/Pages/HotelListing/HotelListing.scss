@@ -1,16 +1,18 @@
+@import 'src/Sass/_mixins.scss';
+
 .hotel-listing{
   width:80%;
   &__container{
     width:50%;
     margin:auto;
     height:70%;
-    border:2px solid #666666;
+    border:2px solid var(--color-black-1);
     margin-top:100px;
     border-radius: 7px;
   }
 
   &__header{
-    background-color:#424242;
+    background-color: var(--color-black-2);
     display:flex;
     margin:0 auto;
     height:9%;
@@ -26,37 +28,130 @@
         height:15px;
         margin-left:10px;
         border-radius:50%;
-        background-color:#666666;
+        background-color: var(--color-black-1);
       }
     }
 
     .header--title{
       margin: auto;
-      color: #FEFEFE;
+      color: var(--color-white-1);
     }
+
+
   }
 
   &__content{
-    border:1px solid red;
-    height:90%;
+    margin:40px 50px 0 0;
+    height:80%;
     display:flex;
-    .content--side__filter{
-      border:1px solid red;
-      width:25%;
-      height:100%;
-    }
 
     .card-container{
       border:1px solid purple;
       width:100%;
-      margin-top:50px;
+      height:100%;
 
       &__header{
-        border:1px solid blue;
+        display:flex;
+        justify-content:space-between;
+        margin-bottom:10px;
+        .sort--filter{
+          display: flex;
+          justify-content: flex-end;
+          & > span{
+            border:1.5px solid var(--color-black-2);
+            height:35px;
+            display:flex;
+            align-items: center;
+            font-weight:500;
+            padding-inline:10px;
+            margin-left:10px;
+            border-radius:2px;
+            padding-top:2px;
+            cursor:pointer;
+          }
+        }
 
+        .total--nights{
+          display:flex;
+          align-items: center;
+          font-weight:600;
+        }
+      }
+
+      &__cards{
+        display:grid;
+        grid-template-columns : repeat(2, 49.1%);
+        grid-template-rows : 60%;
+        gap:10px;
+        overflow:auto;
       }
     }
   }
 
+  //Side Filter Section
+  &__side-filter{
+    padding-inline:10px;
+    margin-top:70px;
+    width: 35%;
+    height: fit-content;
 
+    .search__hotel-name{
+      background: transparent;
+      width:95%;
+      height:8%;
+      margin: 0;
+      padding: 7px 8px;
+      font-size: var(--font-size-14);
+      font-weight:500;
+      border: 2px solid var(--color-black-2);
+      border-radius:20px;
+
+
+      //Color PlaceHolder
+      // Style For Progress Bar For FirFox And IE & Opera & Chrome
+      @include vendor-prefix-placeholder('placeholder');
+
+      //On Focus Search Field
+      &:focus {
+        box-shadow: 0 0 3px 0 var(--color-blue-1);
+        border-color: var(--color-blue-1);
+        outline: none;
+      }
+
+      width: 100%;
+      padding: 9px 4px 9px 35px;
+      background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+    }
+
+    .range--filter{
+      display:flex;
+      flex-direction:column;
+      margin-top:20px;
+
+      &__label{
+        color: var(--color-black-2);
+        font-weight:600;
+        margin-bottom:10px;
+      }
+
+      &__action{
+        -webkit-appearance: none;
+        margin-right: 15px;
+        width: 200px;
+        height: 2.4px;
+        background:var(--color-gray-1);
+        border-radius: 5px;
+        background-size: 70% 100%;
+        background-repeat: no-repeat;
+
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          height: 22px;
+          width: 22px;
+          border-radius: 50%;
+          background: var(--color-gray-2);
+        }
+      }
+    }
+  }
 }

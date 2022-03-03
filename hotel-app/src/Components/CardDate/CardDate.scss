@@ -1,0 +1,19 @@
+.card-date__container{
+  border:1.5px solid var(--color-black-2);
+  height:70%;
+  padding:15px;
+  .card--info{
+    display:flex;
+    flex-direction:column;
+    overflow:auto;
+    height:100%;
+
+    &__label{
+      margin-top:10px;
+    }
+  }
+
+  .city-name{
+    text-transform: capitalize;
+  }
+}
