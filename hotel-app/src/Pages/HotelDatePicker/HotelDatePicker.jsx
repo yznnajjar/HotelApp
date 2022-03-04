@@ -43,12 +43,7 @@ const HotelDatePicker = (props) => {
         <button 
           className="search-button" 
           onClick={()=>{
-            console.log("SEARCH BUTTON CLICKED",{props});
-            if(props.startDate && props.endDate){
-              props.setIsSearchButtonClicked(true)
-            }else{
-              props.setIsSearchButtonClicked(false)
-            }
+              props.setIsSearchButtonClicked(prev => !prev)
           }}
         >
           { SEARCH }

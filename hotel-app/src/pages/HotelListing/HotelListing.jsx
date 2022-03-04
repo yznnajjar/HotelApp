@@ -1,5 +1,6 @@
-import axios from "axios";
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import moment from 'moment';
+import axios from "axios";
 import Layout from '../../components/Layout';
 //Import Helpers
 import CardDate from "../../components/CardDate";
@@ -77,12 +78,15 @@ const dataTest = [
   },
 ]
 
-const HotelListing = () => {
+const HotelListing = (props) => {
   const [hotelList, setHotelList] = useState("");
   const [error, setError] = useState("");
   const [searchHotelName, setSearchHotelName] = useState("");
-
+  const [priceValue, setPriceValue] = useState(0)
+  const [priceHotelList, setPriceHotelList] = useState([]);
+  
   const dSearchText = useDebounce(searchHotelName, 500);
+  const dbPriceValue = useDebounce(priceValue, 1000);
 
   // onSearch called only when debounced search text changes
   useEffect(() => {
@@ -97,19 +101,57 @@ const HotelListing = () => {
     }
   }, [dSearchText]);
 
+  // //Effect When Price Filter Change 
+  useEffect(()=>{
+    if (!dbPriceValue) {
+      setPriceValue(0);
+      setHotelList(dataTest)
+    }
+
+
+    if (dbPriceValue && hotelList.length) {
+      const isTherePrice = hotelList.filter(item => +item.price < +dbPriceValue) || [];
+      if(isTherePrice.length){
+        setPriceHotelList(isTherePrice)
+      }
+    }
+  },[dbPriceValue, hotelList.length])
+
   useEffect(() => {
+    console.log("PUSH HOTEL LIST");
     setHotelList(dataTest);
-  }, [])
+  }, []);
+
+
+  useEffect(()=>{
+    if(hotelList.length === 0) return;
+
+    setHotelList(dataTest);
+    const availableDate = [];
+    hotelList.forEach(item =>{
+      const isAvailableDateBetween = moment(item.available_on).isBetween(props.startDate, props.endDate, null, '[)')
+      if(isAvailableDateBetween){
+        availableDate.push(item);
+      }
+    })
+   
+    if(availableDate.length > 0){
+      setHotelList(availableDate);
+    }else{
+      setHotelList(dataTest);
+    }
+  },[props]);
 
   const handleSortByName = useCallback(() => {
     const sortHotelListByName = hotelList.sort((a, b) => a.name.localeCompare(b.name));
+    console.log({sortHotelListByName});
     setHotelList([...sortHotelListByName])
-  }, [hotelList]);
+  }, [hotelList, dbPriceValue]);
 
   const handleSortByPrice = useCallback(() => {
     const sortHotelListByPrice = hotelList.sort((a, b) => a.price - b.price);
     setHotelList([...sortHotelListByPrice])
-  }, [hotelList]);
+  }, [hotelList, dbPriceValue]);
 
 
   const showSortFilterAndTotalNights = useMemo(() => {
@@ -128,15 +170,17 @@ const HotelListing = () => {
         </div>
       </div>
     )
-  }, [hotelList]);
+  }, [hotelList, dbPriceValue]);
 
 
   const renderCards = useMemo(() => {
     if (hotelList.length === 0) return;
 
+    const cardsToShow = (priceHotelList.length || dbPriceValue)  ? priceHotelList : hotelList;
+
     return (
       <div className="card-container__cards">
-        { hotelList.map((card, index) => (
+        { cardsToShow.map((card, index) => (
           <CardDate
             key={ index }
             name={ card.name }
@@ -146,7 +190,7 @@ const HotelListing = () => {
         )) }
       </div>
     )
-  }, [hotelList]);
+  }, [hotelList, priceHotelList, dbPriceValue]);
 
   const showHotelAppointmentCards = useMemo(() => {
     return (
@@ -157,9 +201,10 @@ const HotelListing = () => {
         { renderCards }
       </div>
     )
-  }, [hotelList]);
+  }, [hotelList, priceHotelList]);
 
-  const showSideFilter = useMemo(() => {
+
+  const showSideFilter = useCallback(() => {
     return (
       <div className="hotel-listing__side-filter">
         <input
@@ -173,17 +218,23 @@ const HotelListing = () => {
         />
 
         <div className="range--filter">
-          <span className="range--filter__label"> { PRICE_FILTER } </span>
+          <span className="range--filter__label"> { PRICE_FILTER }</span>
           <input
             type="range"
             className="range--filter__action"
             min="0"
-            max="100"
+            step="50"
+            value={priceValue}
+            max={"1000"}
+            onInput={event=>{
+              setPriceValue(event.target.value)
+            }}
           />
+          <p>{priceValue}</p>
         </div>
       </div>
     )
-  }, [searchHotelName]);
+  }, [searchHotelName, priceValue, hotelList]);
 
 
   return (
@@ -191,7 +242,7 @@ const HotelListing = () => {
       <Layout title={ HOTEL_LISTING }>
         <div className="hotel-listing__content">
           {/*Show Side Filter*/ }
-          { showSideFilter }
+          { showSideFilter() }
           { showHotelAppointmentCards }
         </div>
       </Layout>

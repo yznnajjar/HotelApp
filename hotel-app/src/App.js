@@ -5,7 +5,7 @@ import './App.scss';
 const App = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [isSearchButtonClicked, setIsSearchButtonClicked] = useState("");
+  const [isSearchButtonClicked, setIsSearchButtonClicked] = useState(false);
 
   return (
     <div className="App">
