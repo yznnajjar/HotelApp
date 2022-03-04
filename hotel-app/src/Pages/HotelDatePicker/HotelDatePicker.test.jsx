@@ -14,8 +14,4 @@ describe("Test Hotel Date Picker",()=>{
     screen.getByText(FROM);
     screen.getByText(SEARCH);
   });
-
-  test
-
-
 })

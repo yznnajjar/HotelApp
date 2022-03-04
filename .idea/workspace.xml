@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4082d854-dff1-404f-944f-0913675577cd" name="Changes" comment="" />
+    <list default="true" id="4082d854-dff1-404f-944f-0913675577cd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/hotel-app/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-app/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-app/src/Pages/HotelDatePicker/HotelDatePicker.test.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-app/src/Pages/HotelDatePicker/HotelDatePicker.test.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,10 +44,22 @@
       <option name="presentableId" value="Default" />
       <updated>1646243683076</updated>
       <workItem from="1646243684174" duration="939000" />
+      <workItem from="1646413654324" duration="57000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
