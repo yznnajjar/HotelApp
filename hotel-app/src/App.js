@@ -1,10 +1,21 @@
-import CardDate from './Components/CardDate'
-import HotelListing from './Pages/HotelListing'
+import {useState} from "react";
+import HotelDatePicker from './pages/HotelDatePicker'
+import HotelListing from './pages/HotelListing'
 import './App.scss';
 const App = () => {
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
   return (
     <div className="App">
-      <HotelListing/>
+      <HotelDatePicker
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+      />
+      <HotelListing
+        startDate={startDate}
+        endDate={endDate}
+      />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 .card-date__container{
   border:1.5px solid var(--color-black-2);
-  height:70%;
-  padding:15px;
+  max-height:70%;
+  padding-block:15px;
+  padding-inline:7px;
   .card--info{
     display:flex;
     flex-direction:column;
@@ -11,6 +12,10 @@
     &__label{
       margin-top:10px;
     }
+  }
+
+  .card-title{
+    font-weight:bold;
   }
 
   .city-name{
