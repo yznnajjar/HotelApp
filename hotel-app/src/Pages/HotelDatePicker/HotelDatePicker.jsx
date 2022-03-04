@@ -5,10 +5,10 @@ import Layout from '../../components/Layout'
 //Import Style
 import './HotelDatePicker.scss';
 
-const FROM = "From:";
-const TO = "To:";
-const SEARCH_HOTEL = "Search Hotel";
-const SEARCH = "Search";
+export const FROM = "From:";
+export const TO = "To:";
+export const SEARCH_HOTEL = "Search Hotel";
+export const SEARCH = "Search";
 
 const todayDate = moment().format("YYYY-MM-DD");
 const tomorrowDate = moment().add(1, "day").format("YYYY-MM-DD");
@@ -40,12 +40,22 @@ const HotelDatePicker = (props) => {
   const showSearchButton = useMemo(() => {
     return (
       <div className="search-button__container">
-        <button className="search-button">
+        <button 
+          className="search-button" 
+          onClick={()=>{
+            console.log("SEARCH BUTTON CLICKED",{props});
+            if(props.startDate && props.endDate){
+              props.setIsSearchButtonClicked(true)
+            }else{
+              props.setIsSearchButtonClicked(false)
+            }
+          }}
+        >
           { SEARCH }
         </button>
       </div>
     )
-  }, [])
+  }, [props.startDate, props.endDate])
 
   return (
     <div className="hotel-date-picker__wrapper">

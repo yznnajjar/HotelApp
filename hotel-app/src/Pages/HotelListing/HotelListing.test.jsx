@@ -67,7 +67,7 @@ const dataTest = [
   },
 ]
 
-describe("Test 1",()=>{
+describe("Test Hotel Listing",()=>{
   test("Test Case For Labels And Titles",()=>{
     render(
       <HotelListing/>
@@ -124,14 +124,20 @@ describe("Test 1",()=>{
     })
   });
 
-  test("Test Case When Search For Hotel Name",()=>{
+  test("Test Case When Search For Hotel Name",async ()=>{
     render(<HotelListing/>);
 
     const searchField = screen.getByRole("searchbox");
 
     expect(searchField.getAttribute("placeholder")).toBe(SEARCH_PLACEHOLDER)
 
-  })
+    // change input
+    await act(async ()=>{
+      fireEvent.change(searchField, {target: {value: "Dubai"}});
+    });
+
+    expect(searchField.getAttribute("value")).toBe("Dubai");
+  });
 
 
 })
