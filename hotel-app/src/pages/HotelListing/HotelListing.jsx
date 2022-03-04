@@ -82,7 +82,7 @@ const HotelListing = () => {
   const [error, setError] = useState("");
   const [searchHotelName, setSearchHotelName] = useState("");
 
-  const dSearchText = useDebounce(searchHotelName, 1000);
+  const dSearchText = useDebounce(searchHotelName, 500);
 
   // onSearch called only when debounced search text changes
   useEffect(() => {
