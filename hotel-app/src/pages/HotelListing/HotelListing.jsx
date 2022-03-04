@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import moment from 'moment';
 import axios from "axios";
 import Layout from '../../components/Layout';
 //Import Helpers
@@ -8,96 +7,42 @@ import useDebounce from "../../lib/hooks/useDebounce";
 //Import Style
 import './HotelListing.scss';
 
-export const HOTEL_LISTING = "Hotel Listing";
-export const PRICE_FILTER = "Price Filter";
-export const SORT_BY_NAME = "Sort By Name";
-export const SORT_BY_PRICE = "Sort By Price";
-export const TOTAL_NIGHTS = "Total Nights";
+export const HOTEL_LISTING      = "Hotel Listing";
+export const PRICE_FILTER       = "Price Filter";
+export const SORT_BY_NAME       = "Sort By Name";
+export const SORT_BY_PRICE      = "Sort By Price";
+export const TOTAL_NIGHTS       = "Total Nights";
 export const SEARCH_PLACEHOLDER = "Hotel Name"
 
-const dataTest = [
-  {
-    "name": "Kempinski Hotel Mall of the Emirates",
-    "price": "200",
-    "city": "dubai",
-    "available_on": "2022-10-21"
-  },
-  {
-    "name": "Address Dubai Mall",
-    "price": "250",
-    "city": "dubai",
-    "available_on": "2022-08-15"
-  },
-  {
-    "name": "JW Marriott Marquis Hotel Dubai",
-    "price": "225",
-    "city": "dubai",
-    "available_on": "2023-09-21"
-  },
-  {
-    "name": "Hilton Dubai Al Habtoor City",
-    "price": "275",
-    "city": "dubai",
-    "available_on": "2022-10-25"
-  },
-  {
-    "name": "Sofitel Dubai Downtown",
-    "price": "300",
-    "city": "dubai",
-    "available_on": "2022-09-20"
-  },
-  {
-    "name": "Renaissance Downtown Hotel",
-    "price": "200",
-    "city": "dubai",
-    "available_on": "2022-10-23"
-  },
-  {
-    "name": "Sofitel Dubai Jumeirah Beach",
-    "price": "250",
-    "city": "dubai",
-    "available_on": "2022-09-20"
-  },
-  {
-    "name": "Ramada Downtown Dubai",
-    "price": "225",
-    "city": "dubai",
-    "available_on": "2022-09-25"
-  },
-  {
-    "name": "Sheraton Mall of the Emirates Hotel",
-    "price": "325",
-    "city": "dubai",
-    "available_on": "2022-10-24"
-  },
-  {
-    "name": "Emirates Grand Hotel Apartments",
-    "price": "300",
-    "city": "dubai",
-    "available_on": "2022-10-27"
-  },
-]
+
 
 const HotelListing = (props) => {
-  const [hotelList, setHotelList] = useState("");
-  const [error, setError] = useState("");
+  const [hotelList, setHotelList]             = useState([]);
   const [searchHotelName, setSearchHotelName] = useState("");
-  const [priceValue, setPriceValue] = useState(0)
-  const [priceHotelList, setPriceHotelList] = useState([]);
+  const [priceValue, setPriceValue]           = useState(0)
+  const [priceHotelList, setPriceHotelList]   = useState([]);
   
-  const dSearchText = useDebounce(searchHotelName, 500);
+  const dSearchText  = useDebounce(searchHotelName, 500);
   const dbPriceValue = useDebounce(priceValue, 1000);
+
+  console.log({dbPriceValue},{dSearchText});
+
+  useEffect(()=>{
+    if(props.data.length === 0) return;
+    setHotelList(props.data);
+  },[]);
 
   // onSearch called only when debounced search text changes
   useEffect(() => {
     if (!dSearchText) {
       setSearchHotelName("");
-      setHotelList(dataTest)
+      setHotelList(props.data)
     }
 
 
-    if (dSearchText) {
-      setHotelList(prevArr => [...prevArr.filter(item => item.name.includes(dSearchText))])
+    if (dSearchText && props.data.length) {
+      const filteredData = hotelList.filter(item => item.name.includes(dSearchText))
+      setHotelList(filteredData);
     }
   }, [dSearchText]);
 
@@ -105,46 +50,23 @@ const HotelListing = (props) => {
   useEffect(()=>{
     if (!dbPriceValue) {
       setPriceValue(0);
-      setHotelList(dataTest)
+      setHotelList(props.data)
     }
 
 
-    if (dbPriceValue && hotelList.length) {
-      const isTherePrice = hotelList.filter(item => +item.price < +dbPriceValue) || [];
-      if(isTherePrice.length){
-        setPriceHotelList(isTherePrice)
-      }
+    if (dbPriceValue && props.data.length) {
+      const isTherePrice = props.data.filter(item => +item.price < +dbPriceValue) || [];
+      setHotelList([...isTherePrice])
     }
-  },[dbPriceValue, hotelList.length])
+  },[dbPriceValue])
 
   useEffect(() => {
-    console.log("PUSH HOTEL LIST");
-    setHotelList(dataTest);
-  }, []);
-
-
-  useEffect(()=>{
-    if(hotelList.length === 0) return;
-
-    setHotelList(dataTest);
-    const availableDate = [];
-    hotelList.forEach(item =>{
-      const isAvailableDateBetween = moment(item.available_on).isBetween(props.startDate, props.endDate, null, '[)')
-      if(isAvailableDateBetween){
-        availableDate.push(item);
-      }
-    })
-   
-    if(availableDate.length > 0){
-      setHotelList(availableDate);
-    }else{
-      setHotelList(dataTest);
-    }
-  },[props]);
+    if(props.data.length === 0) return;
+    setHotelList(props.data);
+  }, [props.data.length]);
 
   const handleSortByName = useCallback(() => {
     const sortHotelListByName = hotelList.sort((a, b) => a.name.localeCompare(b.name));
-    console.log({sortHotelListByName});
     setHotelList([...sortHotelListByName])
   }, [hotelList, dbPriceValue]);
 
@@ -176,18 +98,16 @@ const HotelListing = (props) => {
   const renderCards = useMemo(() => {
     if (hotelList.length === 0) return;
 
-    const cardsToShow = (priceHotelList.length || dbPriceValue)  ? priceHotelList : hotelList;
-
     return (
       <div className="card-container__cards">
-        { cardsToShow.map((card, index) => (
+        {hotelList.map((card, index) => (
           <CardDate
             key={ index }
             name={ card.name }
             price={ card.price }
             city={ card.city }
           />
-        )) }
+        ))}
       </div>
     )
   }, [hotelList, priceHotelList, dbPriceValue]);
@@ -201,10 +121,11 @@ const HotelListing = (props) => {
         { renderCards }
       </div>
     )
-  }, [hotelList, priceHotelList]);
+  }, [hotelList, priceHotelList, searchHotelName]);
 
 
   const showSideFilter = useCallback(() => {
+    console.log("props.heighestPric", props.heighestPric)
     return (
       <div className="hotel-listing__side-filter">
         <input
@@ -223,7 +144,7 @@ const HotelListing = (props) => {
             type="range"
             className="range--filter__action"
             min="0"
-            step="50"
+            step="25"
             value={priceValue}
             max={"1000"}
             onInput={event=>{
@@ -237,14 +158,38 @@ const HotelListing = (props) => {
   }, [searchHotelName, priceValue, hotelList]);
 
 
+  const showWhenContentIsEmpty = useMemo(()=>{
+    if(!props.endDate && !props.startDate){
+      return (
+        <h2 className='empty__content'>You Should Choose Start Date And End Date</h2>
+      )
+    }
+
+    if(!props.endDate || !props.startDate || props.data.length === 0){
+      return (
+        <h2 className='empty__content'>There No Hotel Available Between {props.startDate || "Start Date"} - {props.endDate || "End Date"}</h2>
+      )
+    }
+
+    if(!props.isSearchButtonClicked && (props.endDate && props.startDate)){
+      return (
+        <h2 className='empty__content'>Press In Search Button So You Can Get The Result</h2>
+      )
+    }
+  },[props.startDate, props.endDate]);
+
+
   return (
     <div className="hotel-listing__container">
       <Layout title={ HOTEL_LISTING }>
+      {hotelList.length === 0 ? showWhenContentIsEmpty:(
         <div className="hotel-listing__content">
           {/*Show Side Filter*/ }
           { showSideFilter() }
           { showHotelAppointmentCards }
         </div>
+      )}
+        
       </Layout>
     </div>
   )

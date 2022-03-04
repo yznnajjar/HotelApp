@@ -5,13 +5,14 @@ import Layout from '../../components/Layout'
 //Import Style
 import './HotelDatePicker.scss';
 
-export const FROM = "From:";
-export const TO = "To:";
+export const FROM         = "From:";
+export const TO           = "To:";
 export const SEARCH_HOTEL = "Search Hotel";
-export const SEARCH = "Search";
+export const SEARCH       = "Search";
 
-const todayDate = moment().format("YYYY-MM-DD");
+const todayDate    = moment().format("YYYY-MM-DD");
 const tomorrowDate = moment().add(1, "day").format("YYYY-MM-DD");
+
 const HotelDatePicker = (props) => {
   //Methods
   const showDatePicker = useCallback((label, isStartDate = false) => {
@@ -19,11 +20,9 @@ const HotelDatePicker = (props) => {
       <div className="date-picker__field">
         <label className="label">{ label }</label>
         <input
+          required  
           type="date"
-          className="date-picker"
           placeholder="Date"
-          data-date=""
-          data-date-format="DD MMM YYYY"
           min={ isStartDate ? todayDate : tomorrowDate }
           onChange={ e => {
             if (isStartDate) {
@@ -43,7 +42,9 @@ const HotelDatePicker = (props) => {
         <button 
           className="search-button" 
           onClick={()=>{
-              props.setIsSearchButtonClicked(prev => !prev)
+            if(props.startDate && props.endDate){
+              props.setIsSearchButtonClicked(true)
+            }
           }}
         >
           { SEARCH }
