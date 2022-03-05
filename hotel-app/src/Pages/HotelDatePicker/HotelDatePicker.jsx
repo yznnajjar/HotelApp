@@ -28,7 +28,7 @@ const HotelDatePicker = (props) => {
             className='date-picker-test'
             toolbarTitle="Select A Date"
             inputFormat="dd MMM yyyy"
-            minDate={isStartDate && Date.now()}
+            minDate={Date.now()}
             value={pickerValue}
             onChange={ date => {
               if(isStartDate){

@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import axios from "axios";
+import moment from "moment";
 import Layout from '../../components/Layout';
 //Import Helpers
 import CardDate from "../../components/CardDate";
@@ -25,10 +25,8 @@ const HotelListing = (props) => {
   const dSearchText  = useDebounce(searchHotelName, 500);
   const dbPriceValue = useDebounce(priceValue, 1000);
 
-  console.log({dbPriceValue},{dSearchText});
 
   useEffect(()=>{
-    if(props.data.length === 0) return;
     setHotelList(props.data);
   },[]);
 
@@ -41,7 +39,7 @@ const HotelListing = (props) => {
 
 
     if (dSearchText && props.data.length) {
-      const filteredData = hotelList.filter(item => item.name.includes(dSearchText))
+      const filteredData = props.data.filter(item => item.name.includes(dSearchText))
       setHotelList(filteredData);
     }
   }, [dSearchText]);
@@ -66,11 +64,15 @@ const HotelListing = (props) => {
   }, [props.data.length]);
 
   const handleSortByName = useCallback(() => {
+    if(hotelList.length === 1) return;
+    
     const sortHotelListByName = hotelList.sort((a, b) => a.name.localeCompare(b.name));
     setHotelList([...sortHotelListByName])
   }, [hotelList, dbPriceValue]);
 
   const handleSortByPrice = useCallback(() => {
+    if(hotelList.length === 1) return;
+
     const sortHotelListByPrice = hotelList.sort((a, b) => a.price - b.price);
     setHotelList([...sortHotelListByPrice])
   }, [hotelList, dbPriceValue]);
@@ -125,7 +127,6 @@ const HotelListing = (props) => {
 
 
   const showSideFilter = useCallback(() => {
-    console.log("props.heighestPric", props.heighestPric)
     return (
       <div className="hotel-listing__side-filter">
         <input
@@ -167,7 +168,7 @@ const HotelListing = (props) => {
 
     if(!props.endDate || !props.startDate || props.data.length === 0){
       return (
-        <h2 className='empty__content'>There No Hotel Available Between {props.startDate || "Start Date"} - {props.endDate || "End Date"}</h2>
+        <h2 className='empty__content'>There No Hotel Available Between {moment(props.startDate).format("DD/MMM/YYYY") || "Start Date"} - {moment(props.endDate).format("DD/MMM/YYYY") || "End Date"}</h2>
       )
     }
 
