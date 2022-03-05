@@ -70,9 +70,10 @@ const dataTest = [
 describe("Test Hotel Listing",()=>{
   test("Test Case For Labels And Titles",()=>{
     render(
-      <HotelListing/>
+      <HotelListing
+        data={dataTest}
+      />
     );
-
 
     screen.getByText(HOTEL_LISTING)
     screen.getByText(PRICE_FILTER)
@@ -82,7 +83,11 @@ describe("Test Hotel Listing",()=>{
   })
 
   test("Test Case For Cards",()=>{
-    render(<HotelListing/>);
+    render(
+      <HotelListing 
+        data={dataTest}
+      />
+    );
 
     //Iterating Over Card And Check Name And City And Price
     dataTest.forEach((info,index)=>{
@@ -93,7 +98,11 @@ describe("Test Hotel Listing",()=>{
   });
 
   test("Test Case For Sort Filter (Sort By Name)≈", async ()=>{
-    render(<HotelListing/>);
+    render(
+      <HotelListing
+        data={dataTest}
+      />
+    );
 
     const sortByNameButton = screen.getByText("Sort By Name");
 
@@ -109,7 +118,11 @@ describe("Test Hotel Listing",()=>{
   });
 
   test("Test Case For Sort Filter (Sort By Price)≈", async ()=>{
-    render(<HotelListing/>);
+    render(
+      <HotelListing 
+        data={dataTest}
+      />
+    );
 
     const sortByNameButton = screen.getByText("Sort By Price");
 
@@ -125,7 +138,11 @@ describe("Test Hotel Listing",()=>{
   });
 
   test("Test Case When Search For Hotel Name",async ()=>{
-    render(<HotelListing/>);
+    render(
+      <HotelListing
+        data={dataTest}
+      />
+    );
 
     const searchField = screen.getByRole("searchbox");
 
@@ -138,6 +155,4 @@ describe("Test Hotel Listing",()=>{
 
     expect(searchField.getAttribute("value")).toBe("Dubai");
   });
-
-
 })

@@ -1,4 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import PropTypes from 'prop-types';
 import moment from "moment";
 import Layout from '../../components/Layout';
 //Import Helpers
@@ -196,4 +197,11 @@ const HotelListing = (props) => {
   )
 }
 
+HotelListing.propTypes = {
+  data: PropTypes.array.isRequired
+};
+
+HotelListing.defaultProps = {
+  data : []
+}
 export default HotelListing;
