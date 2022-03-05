@@ -1,7 +1,11 @@
-import React, {useCallback, useMemo} from 'react';
-import moment from 'moment';
+import React, {useCallback, useMemo, useState} from 'react';
+import TextField from '@mui/material/TextField';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import DatePicker from '@mui/lab/DatePicker';
 //Import Helpers Component
 import Layout from '../../components/Layout'
+import DateRangeIcon from '@mui/icons-material/DateRange';
 //Import Style
 import './HotelDatePicker.scss';
 
@@ -10,31 +14,43 @@ export const TO           = "To:";
 export const SEARCH_HOTEL = "Search Hotel";
 export const SEARCH       = "Search";
 
-const todayDate    = moment().format("YYYY-MM-DD");
-const tomorrowDate = moment().add(1, "day").format("YYYY-MM-DD");
 
 const HotelDatePicker = (props) => {
-  //Methods
-  const showDatePicker = useCallback((label, isStartDate = false) => {
+  
+  //Component Methods
+  const showDatePicker = useCallback((label, isStartDate = false) =>{
+    const pickerValue = isStartDate ? new Date(props.startDate.toString()) : new Date(props.endDate.toString());
+    
     return (
-      <div className="date-picker__field">
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
         <label className="label">{ label }</label>
-        <input
-          required  
-          type="date"
-          placeholder="Date"
-          min={ isStartDate ? todayDate : tomorrowDate }
-          onChange={ e => {
-            if (isStartDate) {
-              props.setStartDate(e.target.value);
-            } else {
-              props.setEndDate(e.target.value);
-            }
-          } }
-        />
-      </div>
+        <DatePicker
+            className='date-picker-test'
+            toolbarTitle="Select A Date"
+            inputFormat="dd MMM yyyy"
+            minDate={isStartDate && Date.now()}
+            value={pickerValue}
+            onChange={ date => {
+              if(isStartDate){
+                props.setStartDate(date.toString());
+              }else{
+                props.setEndDate(date.toString());
+              }
+            } }
+            renderInput={(params) => (
+              <TextField
+                
+                {...params}
+                inputProps={{ ...params.inputProps, placeholder: "Select A Date"}}
+              />
+            )}
+            components={{
+              OpenPickerIcon : DateRangeIcon
+            }}
+          />
+      </LocalizationProvider>
     )
-  }, []);
+  },[props.startDate, props.endDate]);
 
   const showSearchButton = useMemo(() => {
     return (
