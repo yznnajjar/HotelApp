@@ -1,8 +1,7 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import PropTypes from 'prop-types';
-import moment from "moment";
-import Layout from '../../components/Layout';
 //Import Helpers
+import Layout from '../../components/Layout';
 import CardDate from "../../components/CardDate";
 import useDebounce from "../../lib/hooks/useDebounce";
 import {
@@ -12,7 +11,6 @@ import {
   SORT_BY_PRICE,
   TOTAL_NIGHTS,
   SEARCH_PLACEHOLDER,
-  WHEN_DATE_EMPTY
 } from '../../lib/helpers/constant'
 //Import Style
 import './HotelListing.scss';
@@ -21,11 +19,9 @@ const HotelListing = (props) => {
   const [hotelList, setHotelList]             = useState([]);
   const [searchHotelName, setSearchHotelName] = useState("");
   const [priceValue, setPriceValue]           = useState(0)
-  const [priceHotelList, setPriceHotelList]   = useState([]);
   
   const dSearchText  = useDebounce(searchHotelName, 500);
   const dbPriceValue = useDebounce(priceValue, 1000);
-
 
   useEffect(()=>{
     setHotelList(props.data);
@@ -72,6 +68,7 @@ const HotelListing = (props) => {
   }, [hotelList, dbPriceValue]);
 
   const handleSortByPrice = useCallback(() => {
+    //No Need To Call Sort If Array Has One Element
     if(hotelList.length === 1) return;
 
     const sortHotelListByPrice = hotelList.sort((a, b) => a.price - b.price);
@@ -113,7 +110,7 @@ const HotelListing = (props) => {
         ))}
       </div>
     )
-  }, [hotelList, priceHotelList, dbPriceValue]);
+  }, [hotelList, dbPriceValue]);
 
   const showHotelAppointmentCards = useMemo(() => {
     return (
@@ -124,7 +121,7 @@ const HotelListing = (props) => {
         { renderCards }
       </div>
     )
-  }, [hotelList, priceHotelList, searchHotelName]);
+  }, [hotelList, searchHotelName]);
 
 
   const showSideFilter = useCallback(() => {
@@ -160,38 +157,14 @@ const HotelListing = (props) => {
   }, [searchHotelName, priceValue, hotelList]);
 
 
-  const showWhenContentIsEmpty = useMemo(()=>{
-    if(!props.endDate && !props.startDate){
-      return (
-        <h2 className='empty__content'>{WHEN_DATE_EMPTY}</h2>
-      )
-    }
-
-    if(!props.endDate || !props.startDate || props.data.length === 0){
-      return (
-        <h2 className='empty__content'>There No Hotel Available Between {moment(props.startDate).format("DD/MMM/YYYY") || "Start Date"} - {moment(props.endDate).format("DD/MMM/YYYY") || "End Date"}</h2>
-      )
-    }
-
-    if(!props.isSearchButtonClicked && (props.endDate && props.startDate)){
-      return (
-        <h2 className='empty__content'>Press In Search Button So You Can Get The Result</h2>
-      )
-    }
-  },[props.startDate, props.endDate]);
-
-
   return (
     <div className="hotel-listing__container">
       <Layout title={ HOTEL_LISTING }>
-      {hotelList.length === 0 ? showWhenContentIsEmpty:(
         <div className="hotel-listing__content">
           {/*Show Side Filter*/ }
           { showSideFilter() }
           { showHotelAppointmentCards }
         </div>
-      )}
-        
       </Layout>
     </div>
   )

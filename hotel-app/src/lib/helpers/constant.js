@@ -4,7 +4,6 @@ export const SORT_BY_NAME       = "Sort By Name";
 export const SORT_BY_PRICE      = "Sort By Price";
 export const TOTAL_NIGHTS       = "Total Nights";
 export const SEARCH_PLACEHOLDER = "Hotel Name"
-export const WHEN_DATE_EMPTY    = "You Should Choose Start Date And End Date";
 
 //Date Picker Container
 export const FROM         = "From:";

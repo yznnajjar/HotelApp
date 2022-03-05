@@ -22,3 +22,8 @@ Welcome to Kait Seera Hotel Date Project.
 ## Profiles
 - StackOverFlow : https://stackoverflow.com/users/10834727/yazan-najjar
 - LinkedIn : https://www.linkedin.com/in/yazannajjar/
+
+## GuideLines
+1- I tried to follow SOLID Princalpe
+2- Instead of add comment for each function about the purpose of this function tried to made the function name more meaningfull and indicate the job for each function
+3- I tried to make code clean and make each some of the functions doesn't exceed 10 line and note more than 3 or 4 parameter which is one of the rules to make the code clean
