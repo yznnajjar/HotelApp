@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import {render, screen, fireEvent, waitFor} from '@testing-library/react';
 import HotelDatePicker from './HotelDatePicker';
-import {FROM, TO, SEARCH_HOTEL, SEARCH} from './HotelDatePicker';
+import {FROM, TO, SEARCH_HOTEL, SEARCH} from '../../lib/helpers/constant';
 
 
 const todayDate = moment().add(1, "day").format("DD MMM YYYY");

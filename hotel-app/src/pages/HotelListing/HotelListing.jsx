@@ -5,17 +5,17 @@ import Layout from '../../components/Layout';
 //Import Helpers
 import CardDate from "../../components/CardDate";
 import useDebounce from "../../lib/hooks/useDebounce";
+import {
+  HOTEL_LISTING,
+  PRICE_FILTER,
+  SORT_BY_NAME,
+  SORT_BY_PRICE,
+  TOTAL_NIGHTS,
+  SEARCH_PLACEHOLDER,
+  WHEN_DATE_EMPTY
+} from '../../lib/helpers/constant'
 //Import Style
 import './HotelListing.scss';
-
-export const HOTEL_LISTING      = "Hotel Listing";
-export const PRICE_FILTER       = "Price Filter";
-export const SORT_BY_NAME       = "Sort By Name";
-export const SORT_BY_PRICE      = "Sort By Price";
-export const TOTAL_NIGHTS       = "Total Nights";
-export const SEARCH_PLACEHOLDER = "Hotel Name"
-
-
 
 const HotelListing = (props) => {
   const [hotelList, setHotelList]             = useState([]);
@@ -163,7 +163,7 @@ const HotelListing = (props) => {
   const showWhenContentIsEmpty = useMemo(()=>{
     if(!props.endDate && !props.startDate){
       return (
-        <h2 className='empty__content'>You Should Choose Start Date And End Date</h2>
+        <h2 className='empty__content'>{WHEN_DATE_EMPTY}</h2>
       )
     }
 

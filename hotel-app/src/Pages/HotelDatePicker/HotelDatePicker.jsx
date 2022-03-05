@@ -3,16 +3,13 @@ import TextField from '@mui/material/TextField';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DatePicker from '@mui/lab/DatePicker';
-//Import Helpers Component
+//Import Helpers
 import Layout from '../../components/Layout'
 import DateRangeIcon from '@mui/icons-material/DateRange';
+import {FROM, TO, SEARCH_HOTEL, SEARCH} from '../../lib/helpers/constant'
 //Import Style
 import './HotelDatePicker.scss';
 
-export const FROM         = "From:";
-export const TO           = "To:";
-export const SEARCH_HOTEL = "Search Hotel";
-export const SEARCH       = "Search";
 
 
 const HotelDatePicker = (props) => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import {render, fireEvent, act, screen} from '@testing-library/react'
-import HotelListing, {SEARCH_PLACEHOLDER} from './HotelListing';
-import {HOTEL_LISTING, PRICE_FILTER, SORT_BY_NAME, SORT_BY_PRICE, TOTAL_NIGHTS} from './HotelListing';
+import HotelListing from './HotelListing';
+import {HOTEL_LISTING, PRICE_FILTER, SORT_BY_NAME, SORT_BY_PRICE, TOTAL_NIGHTS, SEARCH_PLACEHOLDER} from '../../lib/helpers/constant';
 import {CardObj,cardVal} from "../../components/CardDate/CardDate";
 
 const dataTest = [
