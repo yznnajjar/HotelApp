@@ -1,8 +1,16 @@
 import React from 'react'
 import {render, fireEvent, act, screen} from '@testing-library/react'
 import HotelListing from './HotelListing';
-import {HOTEL_LISTING, PRICE_FILTER, SORT_BY_NAME, SORT_BY_PRICE, TOTAL_NIGHTS, SEARCH_PLACEHOLDER} from '../../lib/helpers/constant';
-import {CardObj,cardVal} from "../../components/CardDate/CardDate";
+import {
+  HOTEL_LISTING, 
+  PRICE_FILTER, 
+  SORT_BY_NAME, 
+  SORT_BY_PRICE, 
+  TOTAL_NIGHTS, 
+  SEARCH_PLACEHOLDER, 
+  CARD_LABEL, 
+  CURRENCY
+} from '../../lib/helpers/constant';
 
 const dataTest = [
   {
@@ -82,7 +90,7 @@ describe("Test Hotel Listing",()=>{
     screen.getByText(`${TOTAL_NIGHTS}: ${dataTest.length}`);
   })
 
-  test("Test Case For Cards",()=>{
+  test("Test Case For Cards Name And Price And Label (Text In Each Card)",()=>{
     render(
       <HotelListing 
         data={dataTest}
@@ -91,9 +99,9 @@ describe("Test Hotel Listing",()=>{
 
     //Iterating Over Card And Check Name And City And Price
     dataTest.forEach((info,index)=>{
-      expect(screen.getAllByTestId("name")[index].textContent).toBe(`${CardObj.HOTEL_NAME}: ${info.name}`)
-      expect(screen.getAllByTestId("price")[index].textContent).toBe(`${CardObj.HOTEL_PRICE} : ${info.price} ${cardVal.UAE_CURRENCY}`)
-      expect(screen.getAllByTestId("city")[index].textContent).toBe(`${CardObj.HOTEL_City} : ${info.city}`)
+      expect(screen.getAllByTestId("name")[index].textContent).toBe(`${CARD_LABEL.HOTEL_NAME}: ${info.name}`)
+      expect(screen.getAllByTestId("price")[index].textContent).toBe(`${CARD_LABEL.HOTEL_PRICE} : ${info.price} ${CURRENCY.UAE_CURRENCY}`)
+      expect(screen.getAllByTestId("city")[index].textContent).toBe(`${CARD_LABEL.HOTEL_City} : ${info.city}`)
     })
   });
 
@@ -111,9 +119,9 @@ describe("Test Hotel Listing",()=>{
 
     //Iterating Over Card Sorted By Name And Check Name And City And Price
     afterArrSorted.forEach((info,index)=>{
-      expect(screen.getAllByTestId("name")[index].textContent).toBe(`${CardObj.HOTEL_NAME}: ${info.name}`)
-      expect(screen.getAllByTestId("price")[index].textContent).toBe(`${CardObj.HOTEL_PRICE} : ${info.price} ${cardVal.UAE_CURRENCY}`)
-      expect(screen.getAllByTestId("city")[index].textContent).toBe(`${CardObj.HOTEL_City} : ${info.city}`)
+      expect(screen.getAllByTestId("name")[index].textContent).toBe(`${CARD_LABEL.HOTEL_NAME}: ${info.name}`)
+      expect(screen.getAllByTestId("price")[index].textContent).toBe(`${CARD_LABEL.HOTEL_PRICE} : ${info.price} ${CURRENCY.UAE_CURRENCY}`)
+      expect(screen.getAllByTestId("city")[index].textContent).toBe(`${CARD_LABEL.HOTEL_City} : ${info.city}`)
     })
   });
 
@@ -131,9 +139,9 @@ describe("Test Hotel Listing",()=>{
 
     //Iterating Over Card Sorted By Name And Check Name And City And Price
     afterArrSorted.forEach((info,index)=>{
-      expect(screen.getAllByTestId("name")[index].textContent).toBe(`${CardObj.HOTEL_NAME}: ${info.name}`)
-      expect(screen.getAllByTestId("price")[index].textContent).toBe(`${CardObj.HOTEL_PRICE} : ${info.price} ${cardVal.UAE_CURRENCY}`)
-      expect(screen.getAllByTestId("city")[index].textContent).toBe(`${CardObj.HOTEL_City} : ${info.city}`)
+      expect(screen.getAllByTestId("name")[index].textContent).toBe(`${CARD_LABEL.HOTEL_NAME}: ${info.name}`)
+      expect(screen.getAllByTestId("price")[index].textContent).toBe(`${CARD_LABEL.HOTEL_PRICE} : ${info.price} ${CURRENCY.UAE_CURRENCY}`)
+      expect(screen.getAllByTestId("city")[index].textContent).toBe(`${CARD_LABEL.HOTEL_City} : ${info.city}`)
     })
   });
 

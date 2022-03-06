@@ -10,3 +10,15 @@ export const FROM         = "From:";
 export const TO           = "To:";
 export const SEARCH_HOTEL = "Search Hotel";
 export const SEARCH       = "Search";
+
+//Card Date Constants
+export const CARD_LABEL = {
+  HOTEL_NAME: "Name",
+  HOTEL_PRICE: "Price",
+  HOTEL_City: "City",
+}
+
+
+export const CURRENCY = {
+  UAE_CURRENCY: "AED",
+}

@@ -23,6 +23,7 @@ const HotelListing = (props) => {
   const dSearchText  = useDebounce(searchHotelName, 500);
   const dbPriceValue = useDebounce(priceValue, 1000);
 
+  //Mount Data For Hotel Listing
   useEffect(()=>{
     setHotelList(props.data);
   },[]);
