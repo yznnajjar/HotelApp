@@ -51,7 +51,7 @@ const HotelListing = (props) => {
 
 
     if (dbPriceValue && props.data.length) {
-      const isTherePrice = props.data.filter(item => +item.price < +dbPriceValue) || [];
+      const isTherePrice = props.data.filter(item => +item.price <= +dbPriceValue) || [];
       setHotelList([...isTherePrice])
     }
   },[dbPriceValue])
