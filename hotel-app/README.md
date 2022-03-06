@@ -25,5 +25,5 @@ Welcome to Seera Hotel List Project.
 
 ## GuideLines
 - I followed SOLID Principle
-- Instead of adding comments for each function about the purpose of this function tried to make the function name more meaningful and indicate the job for each function
-- I tried to make code clean and make each some of the functions doesn't exceed 10 lines and note more than 3 or 4 parameters which is one of the rules to make the code clean
+- Instead of adding comments for each function and its purpose, I tried to make the function name more meaningful and indicate the purpose of the function
+- I tried to make code clean and make each some of the functions doesn't exceed 10 lines, and not adding more than 3 or 4 parameters which is one of the rules to make the code clean without any smells
