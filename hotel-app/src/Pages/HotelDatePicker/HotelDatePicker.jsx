@@ -64,7 +64,7 @@ const HotelDatePicker = (props) => {
         </button>
       </div>
     )
-  }, [props.startDate, props.endDate]);
+  }, [props.startDate, props.endDate])
 
   return (
     <div className="hotel-date-picker__wrapper">
