@@ -1,6 +1,6 @@
 # Seera FRONT-END #
 
-Welcome to Kait Seera Hotel Date Project.
+Welcome to Seera Hotel List Project.
 
 
 ## Requirements and Setup ##
