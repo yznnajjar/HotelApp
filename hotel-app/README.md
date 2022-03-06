@@ -14,7 +14,7 @@ Welcome to Seera Hotel List Project.
 - npm run test
 
 ## Run Specific File Test
--npm test <FileName>
+-npm test "FileName"
 
 ## Developer Name
 - Yazan Najjar
