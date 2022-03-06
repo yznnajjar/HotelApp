@@ -10,10 +10,7 @@ import {FROM, TO, SEARCH_HOTEL, SEARCH} from '../../lib/helpers/constant'
 //Import Style
 import './HotelDatePicker.scss';
 
-
-
 const HotelDatePicker = (props) => {
-  
   //Component Methods
   const showDatePicker = useCallback((label, isStartDate = false) =>{
     const pickerValue = isStartDate ? new Date(props.startDate.toString()) : new Date(props.endDate.toString());
@@ -80,7 +77,6 @@ const HotelDatePicker = (props) => {
       </Layout>
     </div>
   )
-
 }
 
 export default HotelDatePicker;

@@ -7,8 +7,7 @@ import HotelListing from './pages/HotelListing'
 //Import Style
 import './App.scss';
 
-
-function getNamesWithSpaces(data){
+const getNamesWithSpaces =(data) =>{
   const names = [];
   for(let i=1 ; i<data.length; i+= 4){
     names.push(JSON.parse(data[i].split(",")[0]))
@@ -57,7 +56,6 @@ const App = () => {
     }
     setIsSearchButtonClicked(false)
   },[isSearchButtonClicked]);
-
 
   return (
     <div className="App">

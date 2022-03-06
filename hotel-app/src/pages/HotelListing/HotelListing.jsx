@@ -76,7 +76,6 @@ const HotelListing = (props) => {
     setHotelList([...sortHotelListByPrice])
   }, [hotelList, dbPriceValue]);
 
-
   const showSortFilterAndTotalNights = useMemo(() => {
     return (
       <div className="card-container__header">
@@ -94,7 +93,6 @@ const HotelListing = (props) => {
       </div>
     )
   }, [hotelList, dbPriceValue]);
-
 
   const renderCards = useMemo(() => {
     if (hotelList.length === 0) return;
