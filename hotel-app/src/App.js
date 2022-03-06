@@ -26,8 +26,8 @@ const App = () => {
 
   useEffect(()=>{
     axios.get('https://run.mocky.io/v3/48244d7b-52e9-4b5f-b122-bd763e53fa5c').then(result=>{
-      const removeUnUsedSlashes = result.data.replace(/\\/ig, "")
-      const nameWithSpace =getNamesWithSpaces(removeUnUsedSlashes.split(":"));
+      const removeSlashes = result.data.replace(/\\/ig, "")
+      const nameWithSpace =getNamesWithSpaces(removeSlashes.split(":"));
       const removeSpaceFromName = result.data.replace(/\s/ig, "").match(/\{(.*?)\}/g);
       
       const convToObj = removeSpaceFromName.map((item, index) => ({...JSON.parse(item), name:nameWithSpace[index]}));

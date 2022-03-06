@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import TextField from '@mui/material/TextField';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -64,7 +64,7 @@ const HotelDatePicker = (props) => {
         </button>
       </div>
     )
-  }, [props.startDate, props.endDate])
+  }, [props.startDate, props.endDate]);
 
   return (
     <div className="hotel-date-picker__wrapper">
