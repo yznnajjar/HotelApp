@@ -1,6 +1,6 @@
-# Seera FRONT-END #
+#  FRONT-END #
 
-Welcome to Seera Hotel List Project.
+Welcome to  Hotel List Project.
 
 
 ## Requirements and Setup ##
